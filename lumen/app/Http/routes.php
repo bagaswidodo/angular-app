@@ -33,3 +33,11 @@ $app->post('dream', ['uses' => 'App\Http\Controllers\DreamController@store']);
 $app->put('dream/{id}', ['uses' => 'App\Http\Controllers\DreamController@update']);
 $app->delete('dream/{id}', ['uses' => 'App\Http\Controllers\DreamController@destroy']);
 
+//comment app
+$app->get('comments', function() use ($app) {
+    return view('comments');
+});
+
+$app->get('api/comment', 'App\Http\Controllers\CommentController@index');
+$app->post('api/comment', 'App\Http\Controllers\CommentController@store');
+$app->delete('api/comment/{id}', 'App\Http\Controllers\CommentController@destroy');
