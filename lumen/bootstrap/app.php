@@ -54,7 +54,18 @@ $app->singleton(
 | route or middleware that'll be assigned to some specific routes.
 |
 */
+$app->middleware([
+    Illuminate\Cookie\Middleware\EncryptCookies::class,
+    Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+    Illuminate\Session\Middleware\StartSession::class,
+    Illuminate\View\Middleware\ShareErrorsFromSession::class,
+    Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
+]);
 
+$app->routeMiddleware([
+	'auth' => App\Http\Middleware\Authenticate::class,
+	'guest' => App\Http\Middleware\RedirectIfAuthenticated::class,
+]);
 // $app->middleware([
 //     // 'Illuminate\Cookie\Middleware\EncryptCookies',
 //     // 'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
