@@ -15,6 +15,11 @@ $app->get('angular', function() use ($app) {
     return view('angular'); //$app->welcome();
 });
 
+//lumen vuejs
+$app->get('vuejs',function(){
+	return view('vue');
+});
+
 
 $app->get('auth/log', ['uses' => 'App\Http\Controllers\Auth\AuthController@getLog']);
 $app->post('auth/login', ['uses' => 'App\Http\Controllers\Auth\AuthController@postLogin']);
