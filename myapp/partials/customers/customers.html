@@ -1,5 +1,27 @@
  <div class="row">
     <div class="col-md-12" ng-show="customers.length > 0">
+
+    <!-- tools -->
+        <div class="row">
+            <div class="col-md-2">PageSize:
+                <select ng-model="entryLimit" class="form-control">
+                    <option>5</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+            <div class="col-md-3">Filter:
+                <input type="text" ng-model="search" ng-change="filter()" placeholder="Filter" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <h5>Filtered {{ filtered.length }} of {{ totalItems}} total customers</h5>
+            </div>
+        </div>
+        <!-- end tools -->
+
+
     
     <nav class= "navbar navbar-default" role= "navigation" >
     <div class= "navbar-header" >

@@ -52,4 +52,8 @@ $app->post('file', '\App\Http\Controllers\FileController@saveFile');
 $app->post('list', '\App\Http\Controllers\FileController@getFileList');
 $app->get('view/{filename}', '\App\Http\Controllers\FileController@viewFile');
 $app->get('delete/{filename}', '\App\Http\Controllers\FileController@deleteFile');
+
+$app->get('todos',function(){
+	return view('todos');
+});
  
