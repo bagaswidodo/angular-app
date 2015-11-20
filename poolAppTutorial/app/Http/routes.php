@@ -32,6 +32,6 @@ Route::resource('api/pooloption','PoolOptionsController');
 Route::get('api/pooloption/addvote/{id}','PoolOptionsController@addVote');
 
 Route::get('todoapp',['uses'=>'TodoAppController@index','middleware'=>'simpleauth']);
-Route::get('poolapp'),function(){
-	return 'poolApp';
+Route::get('poolapp', function(){
+	return view('pools.index');
 });
