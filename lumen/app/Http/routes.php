@@ -47,6 +47,17 @@ $app->get('api/comment', 'App\Http\Controllers\CommentController@index');
 $app->post('api/comment', 'App\Http\Controllers\CommentController@store');
 $app->delete('api/comment/{id}', 'App\Http\Controllers\CommentController@destroy');
 
+
+//cafe spa app
+$app->get('cafe',function() {
+    return view('cafe.spa');
+});
+$app->get('api/cafe', 'App\Http\Controllers\CafeController@index');
+$app->get('api/cafe/{id}', 'App\Http\Controllers\CafeController@show');
+$app->post('api/cafe/{id}', 'App\Http\Controllers\CafeController@update');
+$app->post('api/cafe', 'App\Http\Controllers\CafeController@store');
+$app->delete('api/cafe/{id}', 'App\Http\Controllers\CafeController@destroy');
+
 //angular file operation
 $app->post('file', '\App\Http\Controllers\FileController@saveFile');
 $app->post('list', '\App\Http\Controllers\FileController@getFileList');
