@@ -65,88 +65,13 @@ $app->get('view/{filename}', '\App\Http\Controllers\FileController@viewFile');
 $app->get('delete/{filename}', '\App\Http\Controllers\FileController@deleteFile');
 
 
-
-//todo app
-use App\Todos;
-use Illuminate\Http\Request;
-
-/**
-* Render main view
-*/
-$app->get('todoapp', function() 
-{
-    return view('todos.index');
-});
-
-/**
-* Get all todos
-*/
-$app->get('todos', function()
-{
-    $todos = Todos::orderBy('created_at', 'DESC')->paginate(5)->toArray();
-    $remaining = Todos::where('completed', 0)->count();
-
-    return ['todos' => $todos, 'remaining' => $remaining];
-
-});
-
-/**
-* Create todo
-*/
-$app->post('add-todo', function(Request $request)
-{
-    Todos::create($request->all());
-});
-
-/**
-* Delete todo
-*/
-$app->post('todos/delete/{id}', function($id)
-{
-    Todos::destroy($id);
-});
-
-/**
-* Complete todo
-*/
-$app->post('todos/complete/{id}/{completed}', function($id, $completed)
-{
-    Todos::where('id', $id)->update(['completed' => $completed]);
-});
-
-/**
-* Update todo
-*/
-$app->post('update/{id}', function(Request $request, $id)
-{
-    Todos::where('id', $id)->update([
-        'name' => $request->input('name'),
-        'body' => $request->input('body'),
-        'completed' => $request->input('completed')
-    ]);
-});
-
-/**
-* Render add todo
-*/
-$app->get('add-form', function()
-{
-    return view('todos.templates.add_form');
-});
-
-/**
-* Render update todo
-*/
-$app->get('edit-form', function()
-{
-    return view('todos.templates.edit_form');
-});
-
-/**
-* Todos table
-*/
-$app->get('todos-table', function()
-{
-    return view('todos.templates.todos_table');
-});
+$app->get('todoapp', '\App\Http\Controllers\TodoController@index');
+$app->get('todos', '\App\Http\Controllers\TodoController@allTodos');
+$app->post('add-todo', '\App\Http\Controllers\TodoController@store');
+$app->post('todos/delete/{id}', '\App\Http\Controllers\TodoController@destroy');
+$app->post('todos/complete/{id}/{completed}', '\App\Http\Controllers\TodoController@completed');
+$app->post('update/{id}', '\App\Http\Controllers\TodoController@update' );
+$app->get('add-form','\App\Http\Controllers\TodoController@formAdd' );
+$app->get('edit-form', '\App\Http\Controllers\TodoController@formEdit');
+$app->get('todos-table','\App\Http\Controllers\TodoController@tables');
  
