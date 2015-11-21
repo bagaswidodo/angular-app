@@ -1,19 +1,21 @@
-var app = angular.module('myApp', ['ngRoute']);
-app.factory("services", ['$http', function($http) {
-  var serviceBase = 'api/rest/'
-    var obj = {};
-    obj.getCustomers = function(){
-        return $http.get(serviceBase + 'customers');
-    }
-    obj.getCustomer = function(customerID){
-        return $http.get(serviceBase + 'customer?id=' + customerID);
-    }
+var app = angular.module('myApp', ['ngRoute','ui.bootstrap']);
+app.factory("services",['$http',function($http){
+	var serviceBase = 'api/rest/'
+	var obj = {};
 
-    obj.insertCustomer = function (customer) {
+	obj.getCustomers = function(){
+		return $http.get(serviceBase + 'customers');
+	}
+
+	obj.getCustomer = function(customerID){
+		return $http.get(serviceBase + 'customer?id=' + customerID);
+	}
+
+	obj.insertCustomer = function (customer) {
       return $http.post(serviceBase + 'insertCustomer', customer).then(function (results) {
           return results;
       });
-	  };
+	};
 
 	obj.updateCustomer = function (id,customer) {
 	    return $http.post(serviceBase + 'updateCustomer', {id:id, customer:customer}).then(function (status) {
@@ -27,18 +29,47 @@ app.factory("services", ['$http', function($http) {
 	    });
 	};
 
-    return obj;   
+	return obj;
 }]);
 
-app.controller('listCtrl', function ($scope, services) {
+app.filter('startFrom', function() {
+    return function(input, start) {
+        if(input) {
+            start = +start; //parse to int
+            return input.slice(start);
+        }
+        return [];
+    }
+});
+
+
+app.controller('listCtrl', function ($scope, $timeout, services) {
     services.getCustomers().then(function(data){
         $scope.customers = data.data;
+        $scope.currentPage = 1; //current page
+        $scope.entryLimit = 5; //max no of items to display in a page
+        $scope.filteredItems = $scope.customers.length; //Initially for no filter  
+        $scope.totalItems = $scope.customers.length;
     });
+
+    $scope.setPage = function(pageNo) {
+        $scope.currentPage = pageNo;
+    };
+    $scope.filter = function() {
+        $timeout(function() { 
+            $scope.filteredItems = $scope.filtered.length;
+        }, 10);
+    };
+    $scope.sort_by = function(predicate) {
+        $scope.predicate = predicate;
+        $scope.reverse = !$scope.reverse;
+    };
 });
+
 
 app.controller('editCtrl', function ($scope, $rootScope, $location, $routeParams, services, customer) {
     var customerID = ($routeParams.customerID) ? parseInt($routeParams.customerID) : 0;
-    $rootScope.title = (customerID > 0) ? 'Edit Customer' : 'Add Customer';
+    $rootScope.title = (customerID > 0) ? 'Edit Customer' : 'Tambah Customer';
     $scope.buttonText = (customerID > 0) ? 'Update Customer' : 'Add New Customer';
       var original = customer.data;
       original._id = customerID;
@@ -66,17 +97,19 @@ app.controller('editCtrl', function ($scope, $rootScope, $location, $routeParams
     };
 });
 
+
+
 app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
         title: 'Customers',
-        templateUrl: 'partials/customers/customers.html',
+        templateUrl: 'partials/crud/customers/customers.html',
         controller: 'listCtrl'
       })
       .when('/edit-customer/:customerID', {
         title: 'Edit Customers',
-        templateUrl: 'partials/customers/edit-customer.html',
+        templateUrl: 'partials/crud/customers/edit-customer.html',
         controller: 'editCtrl',
         resolve: {
           customer: function(services, $route){
@@ -89,6 +122,7 @@ app.config(['$routeProvider',
         redirectTo: '/'
       });
 }]);
+
 app.run(['$location', '$rootScope', function($location, $rootScope) {
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
         $rootScope.title = current.$$route.title;

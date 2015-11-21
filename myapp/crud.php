@@ -6,17 +6,14 @@
     <style type="text/css">
     ul>li, a{cursor: pointer;}
     </style>
-    <title>Creating a Simple RESTful PHP web service which is consumed by a AngularJS application</title>
+    <title>CRUD App, Filter, Pagination</title>
 </head>
 <body>
 	<div class="navbar navbar-default" id="navbar">
 	    <div class="container" id="navbar-container">
 	    <div class="navbar-header">
 	        <a href="http://angularcode.com" class="navbar-brand">
-	            <small>
-	                <i class="glyphicon glyphicon-log-out"></i>
-	                AngularCode / AngularJS Demos 
-	            </small>
+	            CRUD Angular
 	        </a><!-- /.brand -->
 	        
 	    </div><!-- /.navbar-header -->
@@ -24,17 +21,13 @@
 	</div>
 
 	<div class="container">
-		<br/>
-		<blockquote><h4><a href="http://angularcode.com/demo-of-a-simple-crud-restful-php-service-used-with-angularjs-and-mysql/">A simple demonstration of CRUD RESTful php service that can be used with Angularjs & mysql</a></h4></blockquote>
-		<br/>
 
 		<div ng-view="" id="ng-view"></div>
 	</div>
-
-
 </body>
 
 <script src="vendor/angular/angular.min.js"></script>
 <script src="vendor/angular/angular-route.min.js"></script>
-<script src="app/customer.js"></script>     
+<script src="vendor/bootstrap/js/ui-bootstrap-tpls-0.10.0.min.js"></script>
+<script src="app/crud/customer.js"></script> 
 </html>
