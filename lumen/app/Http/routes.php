@@ -38,6 +38,19 @@ $app->post('dream', ['uses' => 'App\Http\Controllers\DreamController@store']);
 $app->put('dream/{id}', ['uses' => 'App\Http\Controllers\DreamController@update']);
 $app->delete('dream/{id}', ['uses' => 'App\Http\Controllers\DreamController@destroy']);
 
+//wisata app
+//lumen angular
+$app->get('appwisata', function() use ($app) {
+    return view('wisata'); //$app->welcome();
+});
+
+$app->get('wisata', ['uses' => 'App\Http\Controllers\WisataController@index']);
+$app->post('wisata', ['uses' => 'App\Http\Controllers\WisataController@store']);
+$app->put('wisata/{id}', ['uses' => 'App\Http\Controllers\WisataController@update']);
+$app->delete('wisata/{id}', ['uses' => 'App\Http\Controllers\WisataController@destroy']);
+
+
+
 //comment app
 $app->get('comments', function() use ($app) {
     return view('comments');
