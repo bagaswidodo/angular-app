@@ -154,6 +154,3 @@ dreamsControllers.controller('DreamCtrl', ['$scope', 'Dream',
         };
 
     }]);
-
-
-
