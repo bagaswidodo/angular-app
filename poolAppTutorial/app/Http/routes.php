@@ -21,17 +21,19 @@ Route::controllers([
 ]);
 
 
-Route::get('api/todo', ['uses' => 'TodoController@index','middleware'=>'simpleauth']);
-Route::post('api/todo', ['uses' => 'TodoController@store','middleware'=>'simpleauth']);
-Route::delete('api/todo/{id}', ['uses' => 'TodoController@destroy','middleware'=>'simpleauth']);
-Route::put('api/todo/{id}', ['uses' => 'TodoController@update','middleware'=>'simpleauth']);
+// Route::get('api/todo', ['uses' => 'TodoController@index','middleware'=>'simpleauth']);
+// Route::post('api/todo', ['uses' => 'TodoController@store','middleware'=>'simpleauth']);
+// Route::delete('api/todo/{id}', ['uses' => 'TodoController@destroy','middleware'=>'simpleauth']);
+// Route::put('api/todo/{id}', ['uses' => 'TodoController@update','middleware'=>'simpleauth']);
+
+Route::resource('api/todo','TodoController');
 
 
 Route::resource('api/pool','PoolsController');
 Route::resource('api/pooloption','PoolOptionsController');
 Route::get('api/pooloption/addvote/{id}','PoolOptionsController@addVote');
 
-Route::get('todoapp',['uses'=>'TodoAppController@index','middleware'=>'simpleauth']);
+Route::get('todoapp',['uses'=>'TodoAppController@index','middleware'=>'auth']);
 Route::get('poolapp', function(){
 	return view('pools.index');
 });

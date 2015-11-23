@@ -75,3 +75,8 @@ $app->get('add-form','\App\Http\Controllers\TodoController@formAdd' );
 $app->get('edit-form', '\App\Http\Controllers\TodoController@formEdit');
 $app->get('todos-table','\App\Http\Controllers\TodoController@tables');
  
+
+ //my crud
+$app->get('customer', function(){
+	return view('crud.customers.index');
+});

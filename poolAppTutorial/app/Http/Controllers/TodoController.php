@@ -41,11 +41,11 @@ class TodoController extends Controller {
 	 * @return Response
 	 */
 	public function update($id) {
-		$todo = Todo::find($id);
-		$todo->done = Request::input('done');
-		$todo->save();
+		$todos = Todo::find($id);
+		$todoUpdate = Request::input('isDone');
+		$todos->update(Request::all());
 
-		return $todo;
+		return $todos;
 	}
 
 	/**
