@@ -148,7 +148,8 @@ dreamsControllers.controller('DreamCtrl', ['$scope', 'Dream', function DreamCtrl
                 $scope.$parent.next = response.next_page_url;
                 window.location = '#dreams';
             },
-            function error(errorResponse) {
+            function error(errorResponse, status) {
+                console.log(errorResponse.data.content[0]);
                 $scope.errorCreateContent = errorResponse.data.content[0];
             }
         );

@@ -74,6 +74,7 @@ wisataControllers.controller('LoginCtrl', ['$scope', 'Login',
             $scope.isAlert = false;
             Login.save({}, $scope.formData,
                 function success(response) {
+                    console.log(response);
                     if (response.result === 'success') {
                         $scope.$parent.isLogged = true;
                         $scope.$parent.paginate();
@@ -104,6 +105,7 @@ wisataControllers.controller('WisataCtrl', ['$scope', 'Wisata',
         $scope.errorCreateContent = null;
         Wisata.save({}, $scope.formData,
             function success(response) {
+                console.log(response);
                 $scope.formData.name = null;
                 $scope.$parent.page = 1;
                 $scope.$parent.data = response.data;
@@ -111,8 +113,8 @@ wisataControllers.controller('WisataCtrl', ['$scope', 'Wisata',
                 $scope.$parent.next = response.next_page_url;
                 window.location = '#dreams';
             },
-            function error(errorResponse) {
-                $scope.errorCreateContent = errorResponse.data.content[0];
+            function error(errorResponse, status) {
+                $scope.errorCreateContent = errorResponse.data.name[0];
             }
         );
     };
